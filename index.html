@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="description"
+      content="Compare every PassCode song and discover your personal Best 9."
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a0a0c'/%3E%3Cpath d='M17 14h18c10 0 16 5 16 14S45 42 35 42h-7v8H17V14Zm11 10v8h7c3 0 5-1 5-4s-2-4-5-4h-7Z' fill='%23c7ff3d'/%3E%3C/svg%3E"
+    />
+    <title>PassCode Best 9</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="PassCode Best 9 home">
+        <span class="brand-mark">×</span>
+        <span class="brand-word">pass<span>code</span></span>
+        <small>BEST 9</small>
+      </a>
+      <button class="text-button" id="restartHeader" type="button" hidden>Start over</button>
+    </header>
+
+    <main>
+      <section class="screen intro-screen is-active" id="introScreen" aria-labelledby="introTitle">
+        <div class="intro-grid">
+          <div class="intro-copy">
+            <p class="eyebrow">PassCode Song Sorter</p>
+            <h1 id="introTitle">Find the nine tracks you never skip.</h1>
+            <p class="lede">
+              Pick the song you prefer in each matchup. Every track gets a fair shot,
+              and your choices build a complete ranking along the way.
+            </p>
+            <div class="intro-actions">
+              <button class="primary-button" id="startButton" type="button">Start comparing</button>
+              <button class="secondary-button" id="resumeButton" type="button" hidden>Resume ranking</button>
+            </div>
+            <p class="fine-print">Progress is saved on this device. No sign-in, no data sent anywhere.</p>
+          </div>
+
+          <aside class="stats-panel" aria-label="Ranking details">
+            <div class="stat stat-large">
+              <span id="songCount">96</span>
+              <small>songs in the sorter</small>
+            </div>
+            <div class="stats-row">
+              <div class="stat">
+                <span>≈ 500</span>
+                <small>quick choices</small>
+              </div>
+              <div class="stat">
+                <span>9</span>
+                <small>final picks</small>
+              </div>
+            </div>
+            <div class="signal-bars" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="screen compare-screen" id="compareScreen" aria-labelledby="compareTitle">
+        <div class="progress-wrap">
+          <div class="progress-meta">
+            <span id="progressLabel">Building your ranking</span>
+            <span id="progressPercent">0%</span>
+          </div>
+          <div class="progress-track" role="progressbar" aria-label="Ranking progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <span id="progressBar"></span>
+          </div>
+        </div>
+
+        <div class="compare-heading">
+          <p class="eyebrow">CHOOSE ONE</p>
+          <h2 id="compareTitle">Which song hits harder?</h2>
+          <p>Go with your instinct — there are no wrong answers.</p>
+        </div>
+
+        <div class="duel" aria-live="polite">
+          <button class="song-card song-card-a" id="choiceA" type="button">
+            <span class="choice-key">1</span>
+            <span class="song-era" id="eraA"></span>
+            <strong id="titleA"></strong>
+            <span class="choose-label">Choose this track</span>
+          </button>
+
+          <div class="versus" aria-hidden="true"><span>VS</span></div>
+
+          <button class="song-card song-card-b" id="choiceB" type="button">
+            <span class="choice-key">2</span>
+            <span class="song-era" id="eraB"></span>
+            <strong id="titleB"></strong>
+            <span class="choose-label">Choose this track</span>
+          </button>
+        </div>
+
+        <div class="compare-tools">
+          <button class="text-button" id="tieButton" type="button">Too close to call</button>
+          <button class="text-button" id="undoButton" type="button" disabled>Undo last choice</button>
+        </div>
+        <p class="keyboard-hint">Keyboard: <kbd>1</kbd> or <kbd>←</kbd> for left · <kbd>2</kbd> or <kbd>→</kbd> for right</p>
+      </section>
+
+      <section class="screen result-screen" id="resultScreen" aria-labelledby="resultTitle">
+        <div class="result-heading">
+          <p class="eyebrow" id="resultEyebrow">RANKING COMPLETE</p>
+          <h2 id="resultTitle">Your PassCode Best 9</h2>
+          <p id="resultSummary">Nine songs. One lineup. Entirely yours.</p>
+        </div>
+
+        <div class="share-card-wrap">
+          <canvas
+            id="shareCanvas"
+            width="1080"
+            height="1080"
+            aria-label="A square 3 by 3 image of your PassCode Best 9"
+          ></canvas>
+        </div>
+
+        <ol class="ranking-grid" id="rankingGrid"></ol>
+
+        <div class="result-actions">
+          <button class="primary-button" id="shareButton" type="button">Share 3×3 image</button>
+          <button class="secondary-button" id="downloadButton" type="button">Download PNG</button>
+          <button class="secondary-button" id="copyButton" type="button">Copy as text</button>
+          <button class="text-button" id="restartButton" type="button">Rank again</button>
+        </div>
+        <p class="share-status" id="shareStatus" role="status"></p>
+      </section>
+    </main>
+
+    <footer>
+      <p>Unofficial fan-made song sorter. Song list compiled from PassCode’s public discography.</p>
+      <a href="https://passcode-official.com/discography/" target="_blank" rel="noreferrer">Official discography</a>
+    </footer>
+  </body>
+</html>
