@@ -17,10 +17,12 @@ button { font: inherit; }
 .noise { display: none; }
 
 .site-header { width: min(var(--max), calc(100% - 48px)); height: 82px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
-.brand { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); text-decoration: none; font-size: .86rem; letter-spacing: .18em; }
-.brand-mark { position: relative; z-index: 1; display: grid; place-items: center; width: 42px; height: 42px; margin-right: -24px; font-family: Georgia, serif; font-size: 3.2rem; font-weight: 300; line-height: 1; transform: scaleX(.48) rotate(6deg); }
-.brand-word { position: relative; z-index: 2; font-weight: 600; }
-.brand-word span { margin-left: 23px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-size: .86rem; letter-spacing: .18em; }
+.brand-mark { position: relative; display: block; flex: 0 0 30px; width: 30px; height: 38px; }
+.brand-mark::before, .brand-mark::after { content: ""; position: absolute; top: 2px; left: 14px; width: 1.5px; height: 34px; background: var(--ink); transform-origin: center; }
+.brand-mark::before { transform: rotate(31deg); }
+.brand-mark::after { transform: rotate(-31deg); }
+.brand-word { font-weight: 600; letter-spacing: .22em; }
 .brand small { margin-left: 18px; padding-left: 18px; border-left: 1px solid var(--line); color: var(--muted); font-size: .62rem; font-weight: 500; letter-spacing: .14em; }
 
 main { width: min(var(--max), calc(100% - 48px)); min-height: calc(100vh - 164px); margin: 0 auto; }
